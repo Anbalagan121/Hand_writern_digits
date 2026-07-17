@@ -1,9 +1,9 @@
 """Data loading service."""
 
 import json
-import streamlit as st
+
 import numpy as np
-from tensorflow.keras.datasets import mnist
+import streamlit as st
 
 from config.settings import HISTORY_PATH, METRICS_PATH
 from utils.exceptions import DataLoadError
@@ -16,9 +16,16 @@ logger = get_logger(__name__)
 def load_mnist():
     """Load MNIST dataset with caching."""
     try:
+        from tensorflow.keras.datasets import mnist
+
         (x_train, y_train), (x_test, y_test) = mnist.load_data()
         logger.info(f"MNIST loaded: train={x_train.shape}, test={x_test.shape}")
         return x_train, y_train, x_test, y_test
+    except ImportError as exc:
+        logger.error(f"TensorFlow is unavailable in this runtime: {exc}")
+        raise DataLoadError(
+            "TensorFlow is not available in the current runtime. Please use a Python 3.11 environment with tensorflow-cpu installed."
+        ) from exc
     except Exception as e:
         logger.error(f"MNIST loading failed: {e}")
         raise DataLoadError(f"Failed to load MNIST: {e}") from e

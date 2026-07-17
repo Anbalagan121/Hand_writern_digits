@@ -1,11 +1,11 @@
 """Model loading and management service."""
 
-import os
 import io
+import os
+from contextlib import redirect_stdout
+
 import numpy as np
 import streamlit as st
-from tensorflow.keras.models import load_model
-from contextlib import redirect_stdout
 
 from config.settings import MODEL_PATH
 from utils.exceptions import ModelLoadError
@@ -35,9 +35,16 @@ def load_model_cached(model_path: str = None) -> object:
         )
     
     try:
+        from tensorflow.keras.models import load_model
+
         model = load_model(path)
         logger.info(f"Model loaded: {model.name}, params={model.count_params():,}")
         return model
+    except ImportError as exc:
+        logger.error(f"TensorFlow is unavailable in this runtime: {exc}")
+        raise ModelLoadError(
+            "TensorFlow is not available in the current runtime. Please use a Python 3.11 environment with tensorflow-cpu installed."
+        ) from exc
     except Exception as e:
         logger.error(f"Model loading failed: {e}")
         raise ModelLoadError(f"Failed to load model: {e}") from e

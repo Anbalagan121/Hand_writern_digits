@@ -18,7 +18,7 @@ A production-ready AI web application for recognizing handwritten digits (0-9) u
 ## 🚀 Quick Start
 
 ### Prerequisites
-- Python 3.10+
+- Python 3.11
 - 4GB+ RAM
 
 ### Installation
@@ -32,12 +32,14 @@ pip install -r requirements.txt
 
 # Run application
 streamlit run app.py
+# or
+streamlit run streamlit_app.py
 ```
 
 ### Streamlit Cloud Deployment
 1. Fork this repository
 2. Connect to [Streamlit Cloud](https://streamlit.io/cloud)
-3. Deploy with `streamlit run app.py`
+3. Deploy with `streamlit run app.py` or `streamlit run streamlit_app.py`
 
 ## 🏗️ Architecture
 

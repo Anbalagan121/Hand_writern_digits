@@ -1,8 +1,55 @@
+# Python
 __pycache__/
-*.pyc
-.ipynb_checkpoints/
-.venv/
+*.py[cod]
+*$py.class
+*.so
+.Python
 venv/
 env/
-models/
-data/
+ENV/
+.venv/
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+logs/
+*.log
+
+# Model & Data (keep deployment assets available)
+!models/
+!models/*.keras
+!models/*.h5
+!models/*.pt
+!models/*.pkl
+!data/
+!data/*.json
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Streamlit
+.streamlit/secrets.toml
+
+# Testing
+.coverage
+htmlcov/
+.pytest_cache/
+
+# Distribution
+dist/
+build/
+*.egg-info/
